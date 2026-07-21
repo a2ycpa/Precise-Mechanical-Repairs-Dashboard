@@ -683,14 +683,17 @@ function initApp() {
    Config is baked in from the admin's GitHub settings stored in localStorage,
    OR via URL params: ?gh_user=&gh_repo= for a shared link.
 =================================================================== */
+var GH_DEFAULT_USER = 'a2ycpa';
+var GH_DEFAULT_REPO = 'A2Y-FS-Dashboard';
+
 function getGh() {
   // Support URL params so the admin can share a pre-configured link
   var params = new URLSearchParams(window.location.search);
   var stored = {};
   try { stored = JSON.parse(localStorage.getItem('fs_gh') || '{}'); } catch(e) {}
   return {
-    user:  params.get('gh_user')  || stored.user  || '',
-    repo:  params.get('gh_repo')  || stored.repo  || '',
+    user:  params.get('gh_user')  || stored.user  || GH_DEFAULT_USER,
+    repo:  params.get('gh_repo')  || stored.repo  || GH_DEFAULT_REPO,
     token: params.get('gh_token') || stored.token || ''
   };
 }
